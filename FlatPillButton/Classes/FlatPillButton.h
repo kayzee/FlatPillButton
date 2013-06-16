@@ -12,6 +12,7 @@
 
 //Sets a thicker outline
 @property (assign) BOOL bold;
+@property (assign) CGFloat lineWidth;
 
 //For the lazy...
 + (FlatPillButton *)button;

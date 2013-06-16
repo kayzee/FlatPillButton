@@ -6,6 +6,10 @@
 //  Copyright (c) 2012 Foureyes. All rights reserved.
 //
 
+// ** IMPORTANT **
+// Click on Appirater.m file in Project Navigator and set checkbox near to your target name in Target membership of File Inspector.
+// ***************
+
 #import "FlatPillButton.h"
 
 const CGFloat kFlatPillButtonBoldLineWidth = 3.0;
@@ -14,6 +18,7 @@ const CGFloat kFlatPillButtonNormalLineWidth = 2.0;
 @implementation FlatPillButton
 
 @synthesize bold = _bold;
+@synthesize lineWidth = _lineWidth;
 
 + (FlatPillButton *)button {
   return [FlatPillButton buttonWithType:UIButtonTypeCustom];
@@ -27,6 +32,8 @@ const CGFloat kFlatPillButtonNormalLineWidth = 2.0;
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     self.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+    
+    self.lineWidth = -1;
   }
   return self;
 }
@@ -58,7 +65,7 @@ const CGFloat kFlatPillButtonNormalLineWidth = 2.0;
   
   CGContextSaveGState(ctx);
     
-  CGFloat lineWidth = self.bold ? kFlatPillButtonBoldLineWidth : kFlatPillButtonNormalLineWidth;
+    CGFloat lineWidth = (self.lineWidth > 0) ? self.lineWidth : (self.bold ? kFlatPillButtonBoldLineWidth : kFlatPillButtonNormalLineWidth);
   
   CGContextSetLineWidth(ctx, lineWidth);
   
@@ -113,6 +120,14 @@ const CGFloat kFlatPillButtonNormalLineWidth = 2.0;
 
 - (BOOL)bold {
   return _bold;
+}
+
+- (void)setLineWidth:(CGFloat)lineWidth {
+    _lineWidth = lineWidth;
+    [self setNeedsDisplay];
+}
+- (CGFloat)lineWidth {
+    return _lineWidth;
 }
 
 @end
